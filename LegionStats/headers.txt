@@ -1,0 +1,12 @@
+POST https://api.legiontd2.com/graphql HTTP/1.1
+Host: api.legiontd2.com
+Connection: keep-alive
+Content-Length: 595
+Origin: http://portal.legiontd2.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36
+x-api-key: 4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2
+Content-Type: application/json
+Accept: */*
+Referer: http://portal.legiontd2.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: es-ES,es;q=0.9,en;q=0.8,ca;q=0.7
