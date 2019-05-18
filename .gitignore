@@ -5,3 +5,6 @@
 /.vs/LegionStats/v16
 /LegionStats/obj/Debug
 /packages
+/LegionStats/bin/Debug
+/LegionStats/bin/Release
+/LegionStats/obj/Release
