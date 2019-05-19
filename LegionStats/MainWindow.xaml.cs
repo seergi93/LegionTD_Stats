@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GraphQL.Client;
+using GraphQL.Common.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,7 +56,39 @@ namespace LegionStats
 
             Result ret = new Result();
 
+            
 
+            GraphQLClient client = new GraphQLClient("https://api.legiontd2.com/graphql");
+            client.DefaultRequestHeaders.Add("x-api-key", "4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2");
+
+            GraphQLRequest rq = new GraphQLRequest();
+            rq.Query = @"{
+                          player(playername: """ + playerName + @""" ) {
+                            games(limit: 1) {
+                              count
+                              games {
+                                ts
+                                queuetype
+                                gameDetails {
+                                  workersPerWave
+                                  incomePerWave
+                                  unitsPerWave
+                                  mercsSentPerWave
+                                  ts
+                                  playername
+                                  gameresult
+                                  overallElo
+                                  legionSpell
+                                }
+                              }
+                            }
+                          }
+                        }
+                        ";
+            var result = client.PostAsync(rq).Result;
+
+            var data = result.Data;
+            
 
 
             return ret;

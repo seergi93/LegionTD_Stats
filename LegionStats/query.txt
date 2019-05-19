@@ -1,5 +1,5 @@
 {
-  player(playername: "sobrassada") {
+  player(playername: ) {
     games(limit: 1) {
       count
       games {
