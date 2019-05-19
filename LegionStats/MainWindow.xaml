@@ -9,7 +9,13 @@
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792">
             <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="PlayersList" HorizontalAlignment="Left" Height="255" Margin="24,114,0,0" VerticalAlignment="Top" Width="145"/>
+                    <Button  Content="Player Info" HorizontalAlignment="Left" Margin="195,53,0,0" VerticalAlignment="Top" Width="123" Height="42" Click="GetPlayersInfo"/>
+                    <TextBox x:Name="PlayerInfoResult" HorizontalAlignment="Left" Height="328" Margin="323,53,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="453"/>
+                    <TextBox x:Name="PlayerNameToAdd" HorizontalAlignment="Left" Height="39" Margin="24,22,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145"/>
+                    <Button Content="Add" HorizontalAlignment="Left" Margin="59,75,0,0" VerticalAlignment="Top" Width="75" Height="25" Click="AddPlayer"/>
+                </Grid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5"/>

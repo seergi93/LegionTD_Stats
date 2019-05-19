@@ -1,0 +1,22 @@
+{
+  player(playername: "sobrassada") {
+    games(limit: 1) {
+      count
+      games {
+        ts
+        queuetype
+        gameDetails {
+          workersPerWave
+          incomePerWave
+          unitsPerWave
+          mercsSentPerWave
+          ts
+          playername
+          gameresult
+          overallElo
+          legionSpell
+        }
+      }
+    }
+  }
+}
