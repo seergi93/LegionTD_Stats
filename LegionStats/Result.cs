@@ -26,7 +26,7 @@ namespace LegionStats
     public class Games
     {
         public int count { get; set; }
-        public IList<Game> games { get; set; }
+       // public IList<Game> games { get; set; }
     }
 
     public class Player

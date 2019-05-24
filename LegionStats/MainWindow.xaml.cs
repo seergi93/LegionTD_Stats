@@ -1,8 +1,12 @@
 ﻿using GraphQL.Client;
 using GraphQL.Common.Request;
+using GraphQL.Common.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,14 +44,19 @@ namespace LegionStats
 
         private void GetPlayersInfo(object sender, RoutedEventArgs e)
         {
+
+            dynamic result;
             if (PlayersList.Items.Count > 0)
             {
                 foreach (var player in PlayersList.Items)
                 {
-                    var result = postPlayerInfo(player.ToString());
+                    result = postPlayerInfo(player.ToString());
 
                 }
             }
+
+
+            PlayerInfoResult.Text = "";
 
         }
 
@@ -56,15 +65,10 @@ namespace LegionStats
 
             Result ret = new Result();
 
-            
 
-            GraphQLClient client = new GraphQLClient("https://api.legiontd2.com/graphql");
-            client.DefaultRequestHeaders.Add("x-api-key", "4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2");
-
-            GraphQLRequest rq = new GraphQLRequest();
-            rq.Query = @"{
+            string query = @"{
                           player(playername: """ + playerName + @""" ) {
-                            games(limit: 1) {
+                            games(limit: 200) {
                               count
                               games {
                                 ts
@@ -85,13 +89,45 @@ namespace LegionStats
                           }
                         }
                         ";
-            var result = client.PostAsync(rq).Result;
 
-            var data = result.Data;
-            
+            GraphQLClient client = new GraphQLClient("https://api.legiontd2.com/graphql");
+            client.DefaultRequestHeaders.Add("x-api-key", "4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2");
+
+            GraphQLRequest rq = new GraphQLRequest();
+            rq.Query = query;
+            var aa = client.PostAsync(rq).Result;
+
+            var e = (string) aa.Data.player.games.count;
+
+
+            doQuery(query);
+
 
 
             return ret;
+
+
         }
+
+        private Result doQuery(string query)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Add("x-api-key", "4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2");
+                StringContent queryString = new StringContent("{\"query\":\"" + query.Replace("\r\n", "") + "\",\"variables\":null,\"operationName\":null}", Encoding.UTF8, "application/json");
+
+                string url = "https://api.legiontd2.com/graphql";
+
+                response = client.PostAsync(new Uri(url), queryString).Result;
+            }
+
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            return JsonConvert.DeserializeObject<Result>(result);
+        }
+
     }
 }
