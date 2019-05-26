@@ -1,0 +1,5 @@
+{
+	"query":"{\r\nplayer(playername:\"turru\"){\r\ngames(limit:200){\r\ncount\r\ngames{\r\nts\r\nqueuetype\r\ngameDetails{\r\nworkersPerWave\r\nincomePerWave\r\nunitsPerWave\r\nmercsSentPerWave\r\nts\r\nplayername\r\ngameresult\r\noverallElo\r\nlegionSpell\r\n}\r\n}\r\n}\r\n}\r\n}\r\n",
+	"operationName":null,
+	"variables":null
+}

@@ -140,7 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="headers.txt" />
-    <Resource Include="query.txt" />
+    <None Include="query.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -45,16 +45,17 @@ namespace LegionStats
         private void GetPlayersInfo(object sender, RoutedEventArgs e)
         {
 
-            dynamic result;
-            if (PlayersList.Items.Count > 0)
-            {
-                foreach (var player in PlayersList.Items)
-                {
-                    result = postPlayerInfo(player.ToString());
+            //dynamic result;
+            //if (PlayersList.Items.Count > 0)
+            //{
+            //    foreach (var player in PlayersList.Items)
+            //    {
+            //        result = postPlayerInfo(player.ToString());
 
-                }
-            }
+            //    }
+            //}
 
+            var result = postPlayerInfo("turru");
 
             PlayerInfoResult.Text = "";
 
@@ -66,9 +67,8 @@ namespace LegionStats
             Result ret = new Result();
 
 
-            string query = @"{
-                          player(playername: """ + playerName + @""" ) {
-                            games(limit: 200) {
+            string query = @"{player(playername: \""" + playerName + @"\"" ) {
+                              games(limit: 1) {
                               count
                               games {
                                 ts
@@ -97,7 +97,7 @@ namespace LegionStats
             rq.Query = query;
             var aa = client.PostAsync(rq).Result;
 
-            var e = (string) aa.Data.player.games.count;
+            // var e = (string)aa.Data.player.games.count;
 
 
             doQuery(query);
@@ -117,7 +117,10 @@ namespace LegionStats
             {
 
                 client.DefaultRequestHeaders.Add("x-api-key", "4S4rneouPKr8TOhCygXZiNL9Ut0ZEKP2");
-                StringContent queryString = new StringContent("{\"query\":\"" + query.Replace("\r\n", "") + "\",\"variables\":null,\"operationName\":null}", Encoding.UTF8, "application/json");
+
+                client.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
+
+                StringContent queryString = new StringContent("{\"query\":\"" + query.Replace(System.Environment.NewLine, "") + "\",\"variables\":null,\"operationName\":null}", Encoding.UTF8, "application/json");
 
                 string url = "https://api.legiontd2.com/graphql";
 
